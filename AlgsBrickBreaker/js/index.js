@@ -4,7 +4,7 @@ var ballRadius = 10;
 var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 0;
-var dy = 3;
+var dy = 0;
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
@@ -20,7 +20,7 @@ var brickOffsetLeft = 20;
 var score = 0;
 var lives = 3;
 
-// 1. Change bricks and make them fit on canvas
+// 1. Change bricks and make them fit on canvas DONE
 // 2. get ball to only release when clicked (or up arrow)
 // 3. recognizing hitting single brick
 // 4. replacing brick with Number (replacing ball on paddle)
@@ -29,6 +29,8 @@ var lives = 3;
   // a). messages pop up if lose
   // b). shit changing colors when you hit
   // c). having back or pause Button
+
+  //draw head, draw null, get text to stay
 
 
 var bricks = [];
@@ -42,9 +44,21 @@ for(c=0; c<brickColumnCount; c++) {
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
+document.addEventListener("click", releaseBall, false);
+
+
+function releaseBall(e){
+  drawWords();
+    document.alert("Hello");
+
+}
 
 function keyDownHandler(e) {
-    if(e.keyCode == 39) {
+    if(e.keyCode == 32) {
+        dx = 2;
+        dy = -3;
+    }
+    else if(e.keyCode == 39) {
         rightPressed = true;
     }
     else if(e.keyCode == 37) {
@@ -73,6 +87,11 @@ function collisionDetection() {
                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
                     dy = -dy;
                     b.status = 0;
+                    drawWords();
+
+                    // ctx.font = "16px Arial";
+                    // ctx.fillStyle = "#0095DD";
+                    // ctx.fillText("Brick" 10, 30);
                     score++;
                     if(score == brickRowCount*brickColumnCount) {
                         document.location.reload();
@@ -86,7 +105,7 @@ function collisionDetection() {
 
 function drawBall() {
     ctx.beginPath();
-    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+    ctx.arc(paddleX + (.5 * paddleWidth), canvas.height-(2*paddleHeight), ballRadius, 0, Math.PI*2);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
@@ -97,6 +116,7 @@ function drawPaddle() {
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+
 }
 function drawBricks() {
     for(c=0; c<brickColumnCount; c++) {
@@ -118,21 +138,28 @@ function drawBricks() {
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: "+score, 8, 20);
+    ctx.fillText("Hello: "+score, 8, 20);
 }
 function drawLives() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Lives: "+lives, canvas.width-65, 20);
 }
+function drawWords(){
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#0095DD";
+  ctx.fillText("Testing Draw", canvas.width-90, 100);
+}
 
 function draw() {
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
     drawBall();
     drawPaddle();
     drawScore();
     drawLives();
+    //drawWords();
     collisionDetection();
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
