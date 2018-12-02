@@ -57,7 +57,11 @@ function releaseBall(e){
 }
 
 function keyDownHandler(e) {
+<<<<<<< HEAD
     if(e.keyCode == 32 && ballReleased == false) {
+=======
+    if(e.keyCode == 32) {
+>>>>>>> 0f478034c9cee6f292d34ce1658c5c75c1bcaced
         ballReleased = true;
         dx = 2;
         dy = -3;
