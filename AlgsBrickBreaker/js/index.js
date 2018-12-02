@@ -1,8 +1,8 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var ballRadius = 10;
-var x = canvas.width/2;
-var y = canvas.height-30;
+var x = canvas.width/2; //paddleX + (.5 * paddleWidth);
+var y = canvas.height-30; // canvas.height-(2*paddleHeight)
 var dx = 0;
 var dy = 0;
 var paddleHeight = 10;
@@ -10,6 +10,8 @@ var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
+var ballReleased = false;
+
 var brickRowCount = 7;
 var brickColumnCount = 1;
 var brickWidth = 55;
@@ -48,13 +50,15 @@ document.addEventListener("click", releaseBall, false);
 
 
 function releaseBall(e){
-  drawWords();
+  //ballReleased = true
+    drawWords();
     document.alert("Hello");
 
 }
 
 function keyDownHandler(e) {
     if(e.keyCode == 32) {
+        ballReleased = true;
         dx = 2;
         dy = -3;
     }
@@ -91,7 +95,7 @@ function collisionDetection() {
 
                     // ctx.font = "16px Arial";
                     // ctx.fillStyle = "#0095DD";
-                    // ctx.fillText("Brick" 10, 30);
+                    // ctx.fillText ("Brick" 10, 30);
                     score++;
                     if(score == brickRowCount*brickColumnCount) {
                         document.location.reload();
@@ -105,7 +109,11 @@ function collisionDetection() {
 
 function drawBall() {
     ctx.beginPath();
-    ctx.arc(paddleX + (.5 * paddleWidth), canvas.height-(2*paddleHeight), ballRadius, 0, Math.PI*2);
+    if (ballReleased == false){
+      x = paddleX + (.5 * paddleWidth);
+      y = canvas.height-(2*paddleHeight);
+    }
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
@@ -195,8 +203,10 @@ function draw() {
         paddleX -= 7;
     }
 
+
     x += dx;
     y += dy;
+
     requestAnimationFrame(draw);
 }
 
