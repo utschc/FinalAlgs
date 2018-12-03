@@ -1,1 +1,11 @@
 canvas { background: #eee; }
+
+#LearnMore {
+  margin-top: 20px;
+  line-height: 60px;
+  font-weight: bold;
+  padding: 0 40px;
+  border: none;
+  font-size: 28px;
+  background-color: salmon;
+}

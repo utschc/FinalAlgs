@@ -17,13 +17,15 @@ var brickColumnCount = 1;
 var brickWidth = 55;
 var brickHeight = 20;
 var brickPadding = 10;
-var brickOffsetTop = 30;
+var brickOffsetTop = 50;
 var brickOffsetLeft = 20;
 var score = 0;
 var lives = 3;
 
-// 1. Change bricks and make them fit on canvas DONE
+// 1. Change bricks and make them fit on canvas
+      // DONE
 // 2. get ball to only release when clicked (or up arrow)
+      // DONE
 // 3. recognizing hitting single brick
 // 4. replacing brick with Number (replacing ball on paddle)
 // 5. two different balls (number ball and connector ball)
@@ -136,7 +138,15 @@ function drawBricks() {
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = "#0095DD";
+                if(r == 0){
+                  ctx.fillStyle = "#000000";
+                  ctx.fillText("Head",30,50);
+                }else if(r==6){
+                  ctx.fillStyle = "#000000";
+                  ctx.fillText("NULL",420,50);
+                }else{
+                  ctx.fillStyle = "#0095DD";
+                }
                 ctx.fill();
                 ctx.closePath();
             }
@@ -189,8 +199,9 @@ function draw() {
             else {
                 x = canvas.width/2;
                 y = canvas.height-30;
-                dx = 3;
-                dy = -3;
+                // dx = 3;
+                // dy = -3;
+                ballReleased = false;
                 paddleX = (canvas.width-paddleWidth)/2;
             }
         }
