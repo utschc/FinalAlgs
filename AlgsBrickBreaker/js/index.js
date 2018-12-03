@@ -44,7 +44,7 @@ var lives = 3;
   //draw head, draw null, get text to stay
       // DONE
 
-
+//Initialize Bricks
 var bricks = [];
 for(c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
@@ -56,7 +56,7 @@ for(c=0; c<brickColumnCount; c++) {
         }
     }
 }
-
+//Initialize LL
 var ll = [];
 for(c=0; c<LLColumnCount; c++) {
     ll[c] = [];
@@ -65,19 +65,14 @@ for(c=0; c<LLColumnCount; c++) {
     }
 }
 
+//Initialize Event Listeners
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
-document.addEventListener("click", releaseBall, false);
 
-
-function releaseBall(e){
-  //ballReleased = true
-    drawWords();
-    document.alert("Hello");
-}
-
+// Handling different Keys Pressed
 function keyDownHandler(e) {
+    //space bar pressed
     if(e.keyCode == 32 && ballReleased == false) {
         ballReleased = true;
         dx = 2;
@@ -107,6 +102,7 @@ function mouseMoveHandler(e) {
     }
 }
 
+//detecting collisions with bricks
 function collisionDetection(chosenOne) {
     for(c=0; c<brickColumnCount; c++) {
         for(r=0; r<brickRowCount; r++) {
@@ -151,6 +147,7 @@ function drawPaddle() {
     ctx.closePath();
 }
 
+// Draws the Bricks
 function drawBricks() {
     for(c=0; c<brickColumnCount; c++) {
         for(r = 0 ; r<brickRowCount ; r++) {
@@ -177,6 +174,7 @@ function drawBricks() {
     }
 }
 
+// Draws LL
 function drawLL() {
     for(c=0; c<LLColumnCount; c++) {
         for(r = 0 ; r<LLRowCount ; r++) {
