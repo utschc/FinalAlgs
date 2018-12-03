@@ -102,6 +102,16 @@ function mouseMoveHandler(e) {
     }
 }
 
+function choseRandom(){
+  // var rando = [0,6];
+  var x = Math.floor((Math.random() * 5) + 1);
+  return x;
+  // rando = [0,x,6];
+  // for(i=0; i<rando.length(); i++){
+  //   collisionDetection(rando[i]);
+  // }
+}
+
 //detecting collisions with bricks
 function collisionDetection(chosenOne) {
     for(c=0; c<brickColumnCount; c++) {
@@ -213,14 +223,7 @@ function drawLives() {
     ctx.fillText("Lives: "+lives, canvas.width-65, 20);
 }
 
-function drawWords(){
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#0095DD";
-  ctx.fillText("Testing Draw", canvas.width-90, 100);
-}
-
 function draw() {
-    // alert("Hit brick 4!");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
     drawLL();
@@ -228,16 +231,8 @@ function draw() {
     drawPaddle();
     drawScore();
     drawLives();
-    //drawWords();
-    collisionDetection(bricks[0][4]);
-
-    // while(true){
-    //   Random rand = new Random();
-    //   rand = rand.nextInt();
-    //   alert("you got 5!");
-    //   cD(5);
-    //
-    // }
+    // choseRandom();
+    collisionDetection(bricks[0][choseRandom()]);
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
