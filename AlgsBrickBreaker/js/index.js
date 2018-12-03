@@ -59,7 +59,7 @@ function releaseBall(e){
 }
 
 function keyDownHandler(e) {
-    if(e.keyCode == 32) {
+    if(e.keyCode == 32 && ballReleased == false) {
         ballReleased = true;
         dx = 2;
         dy = -3;
@@ -91,6 +91,9 @@ function collisionDetection() {
             var b = bricks[c][r];
             if(b.status == 1) {
                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                    if (r == 0 ){
+                      alert("Head Brick!");
+                    }
                     dy = -dy;
                     b.status = 0;
                     drawWords();
@@ -130,7 +133,7 @@ function drawPaddle() {
 }
 function drawBricks() {
     for(c=0; c<brickColumnCount; c++) {
-        for(r=0; r<brickRowCount; r++) {
+        for(r = 0 ; r<brickRowCount ; r++) {
             if(bricks[c][r].status == 1) {
                 var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
                 var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
@@ -151,6 +154,33 @@ function drawBricks() {
                 ctx.closePath();
             }
         }
+        /*
+
+
+        //Drawing the Head Brick
+        r = 0
+        var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+        var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+        bricks[c][r].x = brickX;
+        bricks[c][r].y = brickY;
+        ctx.beginPath();
+        ctx.rect(brickX, brickY, brickWidth, brickHeight);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.closePath();
+        //Drawing the Null brick
+        r = brickRowCount -1
+        var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+        var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+        bricks[c][r].x = brickX;
+        bricks[c][r].y = brickY;
+        ctx.beginPath();
+        ctx.rect(brickX, brickY, brickWidth, brickHeight);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.closePath();
+        */
+
     }
 }
 function drawScore() {
@@ -194,7 +224,7 @@ function draw() {
             lives--;
             if(!lives) {
               document.location.reload();
-                //alert("GAME OVER");
+                  alert("GAME OVER");
             }
             else {
                 x = canvas.width/2;
