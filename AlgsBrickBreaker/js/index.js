@@ -101,7 +101,7 @@ function collisionDetection() {
                       // alert("Null Brick!");
                     }
                     if(r==1 || r==2 || r==3 || r==4 || r==5){
-                      // ctx.fillStyle("#746DCB");
+                      // ctx.fillStyle("#FFFFFF");
                       ctx.fillText("4", 300, 50);
                       b.status = 0;
                       score++;
@@ -154,6 +154,8 @@ function drawBricks() {
                 }else if(r==6){
                   ctx.fillStyle = "#000000";
                   ctx.fillText("NULL",420,50);
+                // }else if(r==2){
+                //   ctx.fillText("2", 90, 50);
                 }else{
                   ctx.fillStyle = "#0095DD";
                 }
