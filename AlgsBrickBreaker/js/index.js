@@ -93,23 +93,24 @@ function collisionDetection() {
         for(r=0; r<brickRowCount; r++) {
             var b = bricks[c][r];
             if(b.status == 1) {
-                if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight){
                     if (r == 0 ){
-                      alert("Head Brick!");
+                      // alert("Head Brick!");
                     }
                     if(r==6){
-                      alert("Null Brick!");
+                      // alert("Null Brick!");
                     }
-                    if(r==3 || r==2 || r==5 || r==4){
+                    if(r==1 || r==2 || r==3 || r==4 || r==5){
                       // ctx.fillStyle("#746DCB");
+                      ctx.fillText("4", 300, 50);
+                      b.status = 0;
+                      score++;
                     }
                     dy = -dy;
-                    b.status = 0;
-                    drawWords();
-                    score++;
-                    if(score == brickRowCount*brickColumnCount) {
+                    // drawWords();
+                    if(score == (brickRowCount*brickColumnCount-2)) {
                         document.location.reload();
-                        // alert("YOU WIN, CONGRATS!");
+                        alert("YOU WIN, CONGRATS!");
                     }
                 }
             }
