@@ -175,10 +175,10 @@ function drawBricks() {
                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
                 if(r == 0){
                   ctx.fillStyle = bricks[c][r].color;
-                  ctx.fillText("Head",30,160);
+                  ctx.fillText("Head",30,155);
                 }else if(r==6){
                   ctx.fillStyle = bricks[c][r].color;
-                  ctx.fillText("NULL",420,160);
+                  ctx.fillText("NULL",420,155);
                 }else{
                   ctx.fillStyle = bricks[c][r].color;
                 }
@@ -202,10 +202,10 @@ function drawLL() {
                 ctx.rect(llX, llY, LLWidth, LLHeight);
                 if(r == 0){
                   ctx.fillStyle = "#000000";
-                  ctx.fillText("Head",30,60);
+                  ctx.fillText("Head",30,70);
                 }else if(r==6){
                   ctx.fillStyle = "#000000";
-                  ctx.fillText("NULL",420,60);
+                  ctx.fillText("NULL",420,70);
                 }else{
                   ctx.fillStyle = "#223467";
                 }
