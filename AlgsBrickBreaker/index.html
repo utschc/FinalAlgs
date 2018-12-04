@@ -3,28 +3,126 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Brick Breaker</title>
+  <title>Learn Linked Lists the Game</title>
   <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+
 <body>
-  <h1>Linked List Learning Game!!</h1>
-  <ul>
-    <li>Here go the rules describing the game</li>
-    <li>Here go the rules describing the game</li>
-    <li>Here go the rules describing the game</li>
-    <li>Here go the rules describing the game</li>
-    <li>Here go the rules describing the game</li>
-    <li>Now that you know the rules, press the space button when you want to start!</li>
-  </ul>
-  <canvas id="myCanvas" width="480" height="480"></canvas>
-  <script  src="js/index.js"></script>
-  <br>
-  <ul>
-    <li>Dictionary def goes here</li>
-    <li>Description of LL goes here</li>
-    <li>Learn more by reading w/ link</li>
-    <li>Learn more by visiualizing w/ links</li>
-  </ul>
+  <div class="w3-top">
+    <div class="w3-bar w3-teal w3-card w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-teal" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+      <a href="#rules" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Rules</a>
+      <a href="#playgame" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Play</a>
+      <a href="#learnmore" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Learn More</a>
+      <a href="#links" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Github Code</a>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+      <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="w3-container w3-teal w3-center" style="padding:128px 16px">
+    <h1 class="w3-margin w3-jumbo">Linked List Learning Game</h1>
+    <h2 class="w3-margin">Algorithms Final Project</h2>
+    <h2 class="w3-margin">Erin Berg, Matthieu Tapolsky, Charlie Utsch</h2>
+  <!--  <p class="w3-xlarge">Goal: to create a fun and interactive game to teach users about linked lists.</p> -->
+    <a href="#playgame"><button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Let's Play!</button></a>
+  </header>
+
+  <!-- First Grid -->
+  <div id="rules" class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>Instructions for Game Play</h1>
+        <h5 class="w3-padding-16">A linked list is a linear collection of data elements, whose order is not given by their physical placement but instead each element points to the next.</h5>
+        <h5 class="w3-padding-16">Ready to learn about <strong>Linked Lists</strong>? Here are the rules:</h5>
+        <ul>
+          <li>There will be an empty linked list to start off the game. When you enter, a random number will light up, this is the number you are going to insert in the list.</li>
+          <li>You will then move the cursor underneath the linked list to where you think this element will be inserted, thereby showing that you understand how the pointers work.</li>
+          <li>Finally we will check to make sure you put the cursor in the right place and if youa are right you will keep going and if you are wrong you will lose time!</li>
+          <li>Rule4</li>
+          <li>Rule5</li>
+        </ul>
+        <h5 class="w3-padding-16">Good Luck!</h5>
+      </div>
+
+      <div class="w3-third w3-center">
+        <img class="resize" src="./linkedlistphoto.png">
+      </div>
+    </div>
+  </div>
   <!-- <button id="LearnMore" onclick="hey">Learn More!!</button> -->
+
+<!-- Second Grid -->
+<div id="playgame" class="w3-row-padding w3-padding-64 w3-container w3-light-grey">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h2>Ready to Play? Press the Space Bar.</h2>
+      <canvas id="myCanvas" width="480" height="480"></canvas>
+      <script  src="js/index.js"></script>
+    </div>
+  </div>
+</div>
+
+<!-- Third Grid -->
+<div id="learnmore" class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">Learn More</h1>
+<div class="w3-row-padding w3-center w3-margin-top">
+<div class="w3-third">
+  <div class="w3-card w3-white w3-container" style="min-height:460px">
+  <h3>Why Linked Lists?</h3><br><br>
+  <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+    <p>Dynamic Size & Ease of Insertion/Deletion</p>
+    <p>Linked lists store linear data like arrays do. However arrays are limited because their size is fixed. One must know the upper limit on the number of elements in advance, and inserting a new element in an array of elements is expensive because room has to be created for the new elements, and to create room for existing elements that have shifted.</p>
+  </div>
+</div>
+
+<div class="w3-third">
+  <div class="w3-card w3-white w3-container" style="min-height:460px">
+  <h3>Applications</h3><br><br>
+  <i class="fa fa-address-book w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+  <p>Our personal computers. All the running applications are kept in a linked list and the OS gives a fixed time slot to all for running. The operating system keeps on iterating over the linked list until all the applications are completed.</p
+  <p>Undo functionality in Microsoft Word —> linked list of states.</p>
+  <p>Used to implement other data structures like stacks, queues, graphs, and hash tables.</p>
+  </div>
+</div>
+
+<div class="w3-third">
+  <div class="w3-card w3-white w3-container" style="min-height:460px">
+  <h3>Reading & Visualization</h3>
+  <i class="fa fa-mobile w3-margin-bottom w3-text-theme" style="font-size:200px"></i>
+  <p><a href="https://www.cs.cmu.edu/~adamchik/15-121/lectures/Linked%20Lists/linked%20lists.html">Reading</a></p>
+  <p><a href="https://visualgo.net/en/list">Visualization</a></p>
+  <p><a href="https://www.youtube.com/watch?v=ZvHRYEcTxe8">Video</a></p>
+  </div>
+</div>
+</div>
+</div>
+
 </body>
 </html>
+
+<!-- Footer -->
+<footer id="links" class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <a href="https://github.com/utschc/FinalAlgs"><i class="fa fa-github w3-hover-opacity"></i></a>
+ </div>
+ <p class="w3-text-teal">Built by Erin Berg, Matthieu Tapolsky, and Charlie Utsch<p>
+</footer>
