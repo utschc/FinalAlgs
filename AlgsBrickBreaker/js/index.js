@@ -30,6 +30,7 @@ var lives = 3;
 var theOrder = [0,6];
 var round = 1;
 var index = 0;
+var gameOver = false;
 
 // 1. Change bricks and make them fit on canvas
       // DONE
@@ -52,8 +53,10 @@ var bricks = [];
 for(c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
     for(r=0; r<brickRowCount; r++) {
-        if(r==0){// || r ==6){
+        if(r==0){
           bricks[c][r] = { x: 0, y: 0, color: "black", status: 1, hittable: true  };
+        }else if(r==6){
+          bricks[c][r] = { x: 0, y: 0, color: "black", status: 1, hittable: false  };
         }else{
           bricks[c][r] = { x: 0, y: 0, color: "blue", status: 1, hittable: false };
         }
@@ -75,17 +78,26 @@ document.addEventListener("mousemove", mouseMoveHandler, false);
 
 // Handling different Keys Pressed
 function keyDownHandler(e) {
-    //space bar pressed
-    if(e.keyCode == 32 && ballReleased == false) {
-        ballReleased = true;
-        dx = 0;
-        dy = -6;
-    }
-    else if(e.keyCode == 39) {
+    if(e.keyCode == 39) {
         rightPressed = true;
     }
     else if(e.keyCode == 37) {
         leftPressed = true;
+    }
+    else if(e.keyCode == 87 && ballReleased == false) {//w
+        ballReleased = true;
+        dx = 0;
+        dy = -6;
+    }
+    else if(e.keyCode == 68 && ballReleased == false) {//d
+        ballReleased = true;
+        dx = 3;
+        dy = -3;
+    }
+    else if(e.keyCode == 65 && ballReleased == false) {//a
+        ballReleased = true;
+        dx = -3;
+        dy = -3;
     }
 }
 
@@ -105,20 +117,6 @@ function mouseMoveHandler(e) {
     }
 }
 
-function choseRandom(){
-  // var rando = [0,6];
-  var x = Math.floor((Math.random() * 5) + 1);
-  return x;
-  // rando = [0,x,6];
-  // for(i=0; i<rando.length(); i++){
-  //   collisionDetection(rando[i]);
-  // }
-}
-
-function choseRandom2(){
-  var arr = [1,2,3,4,5];
-  return arr[Math.floor(Math.random() * arr.length)];
-}
 //Function that takes in the order list and adds one more to it and returns it
 function addOrder(list){
   var len = list.length;
@@ -136,13 +134,20 @@ function addOrder(list){
   }
 
 function hittableHandler(){
+  if(gameOver == true){
+    document.location.reload();
+    alert("YOU WIN, CONGRATS!");
+    gameOver = false;
+  }
   if (index == (theOrder.length-1)){
     bricks[0][theOrder[index]].hittable = false;
     theOrder = addOrder(theOrder);
     alert(theOrder);
+    if(theOrder.length == 7 && index==6){
+      gameOver = true;
+    }
     index = 0;
     bricks[0][0].hittable = true;
-
   }
   else{
     bricks[0][theOrder[index]].hittable = false;
@@ -152,7 +157,6 @@ function hittableHandler(){
 }
 //detecting collisions with bricks
 function collisionDetection() {
-
     for(c=0; c<brickColumnCount; c++) {
         for(r=0; r<brickRowCount; r++) {
             var b = bricks[c][r];
@@ -160,8 +164,6 @@ function collisionDetection() {
                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight){
                     if(b.hittable == true){
                       ll[c][r].status = 1;
-                      //ll[0][0].status = 1;
-                      //ll[0][6].status = 1;
                       b.color = "green";
                       b.status = 1;
                       ballReleased = false;
@@ -272,8 +274,7 @@ function draw() {
     drawPaddle();
     drawScore();
     drawLives();
-    // choseRandom();
-    collisionDetection();//bricks[0][choseRandom2()]);
+    collisionDetection();
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -286,10 +287,10 @@ function draw() {
             dy = -dy;
         }
         else {
-            //lives--;
+            lives--;
             if(!lives) {
               document.location.reload();
-                  alert("GAME OVER");
+              alert("So close! Try again and you'll get it!");
             }
             else {
                 x = canvas.width/2;
