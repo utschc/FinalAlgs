@@ -112,6 +112,11 @@ function choseRandom(){
   // }
 }
 
+function choseRandom2(){
+  var arr = [1,2,3,4,5];
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 //detecting collisions with bricks
 function collisionDetection(chosenOne) {
     for(c=0; c<brickColumnCount; c++) {
@@ -232,7 +237,7 @@ function draw() {
     drawScore();
     drawLives();
     // choseRandom();
-    collisionDetection(bricks[0][choseRandom()]);
+    collisionDetection(bricks[0][choseRandom2()]);
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
