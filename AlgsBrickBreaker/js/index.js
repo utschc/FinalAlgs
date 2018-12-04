@@ -27,6 +27,9 @@ var LLOffsetTop = 30;
 var LLOffsetLeft = 20;
 var score = 0;
 var lives = 3;
+var theOrder = [0,6];
+var round = 1;
+var index = 0;
 
 // 1. Change bricks and make them fit on canvas
       // DONE
@@ -49,10 +52,10 @@ var bricks = [];
 for(c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
     for(r=0; r<brickRowCount; r++) {
-        if(r==0 || r ==6){
-          bricks[c][r] = { x: 0, y: 0, color: "black", status: 1 };
+        if(r==0){// || r ==6){
+          bricks[c][r] = { x: 0, y: 0, color: "black", status: 1, hittable: true  };
         }else{
-          bricks[c][r] = { x: 0, y: 0, color: "blue", status: 1 };
+          bricks[c][r] = { x: 0, y: 0, color: "blue", status: 1, hittable: false };
         }
     }
 }
@@ -75,8 +78,8 @@ function keyDownHandler(e) {
     //space bar pressed
     if(e.keyCode == 32 && ballReleased == false) {
         ballReleased = true;
-        dx = 2;
-        dy = -3;
+        dx = 0;
+        dy = -6;
     }
     else if(e.keyCode == 39) {
         rightPressed = true;
@@ -116,20 +119,53 @@ function choseRandom2(){
   var arr = [1,2,3,4,5];
   return arr[Math.floor(Math.random() * arr.length)];
 }
+//Function that takes in the order list and adds one more to it and returns it
+function addOrder(list){
+  var len = list.length;
+  if (len < 7){
+    while (true){
+       var num = Math.floor((Math.random() * 5) + 1);
+      if(list.includes(num) == false){
+        break;
+      }
+    }
+    list.push(num);
+    list.sort();
+  }
+  return list;
+  }
 
+function hittableHandler(){
+  if (index == (theOrder.length-1)){
+    bricks[0][theOrder[index]].hittable = false;
+    theOrder = addOrder(theOrder);
+    alert(theOrder);
+    index = 0;
+    bricks[0][0].hittable = true;
+
+  }
+  else{
+    bricks[0][theOrder[index]].hittable = false;
+    bricks[0][theOrder[index + 1]].hittable = true;
+    index ++;
+  }
+}
 //detecting collisions with bricks
-function collisionDetection(chosenOne) {
+function collisionDetection() {
+
     for(c=0; c<brickColumnCount; c++) {
         for(r=0; r<brickRowCount; r++) {
             var b = bricks[c][r];
             if(b.status == 1) {
                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight){
-                    if(chosenOne == b){
+                    if(b.hittable == true){
                       ll[c][r].status = 1;
-                      ll[0][0].status = 1;
-                      ll[0][6].status = 1;
+                      //ll[0][0].status = 1;
+                      //ll[0][6].status = 1;
                       b.color = "green";
+                      b.status = 1;
                       ballReleased = false;
+                      hittableHandler();
                     }
                     dy = -dy;
                     if(score == (brickRowCount*brickColumnCount-2)) {
@@ -237,7 +273,7 @@ function draw() {
     drawScore();
     drawLives();
     // choseRandom();
-    collisionDetection(bricks[0][choseRandom2()]);
+    collisionDetection();//bricks[0][choseRandom2()]);
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -250,7 +286,7 @@ function draw() {
             dy = -dy;
         }
         else {
-            lives--;
+            //lives--;
             if(!lives) {
               document.location.reload();
                   alert("GAME OVER");
