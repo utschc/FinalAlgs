@@ -28,6 +28,7 @@ var LLOffsetLeft = 20;
 var score = 0;
 var lives = 5;
 var theOrder = [0,6];
+var brickNames= ["Head", 1,2,3,4,5,"Null"];
 var round = 1;
 var index = 0;
 var gameOver = false;
@@ -122,16 +123,33 @@ function addOrder(list){
   var len = list.length;
   if (len < 7){
     while (true){
-       var num = Math.floor((Math.random() * 5) + 1);
+      var num = Math.floor((Math.random() * 5) + 1);
       if(list.includes(num) == false){
         break;
       }
     }
+    alert("The new Node to insert is Brick # " + num);
     list.push(num);
     list.sort();
   }
   return list;
   }
+
+function listToString(cList){
+  var s = ""
+  for (i = 0; i < cList.length; i++ ){
+    if(cList[i] == 0){
+      s += "Head ";
+    }
+    else if (cList[i] == 6 ) {
+      s += " -> Null ";
+    }
+    else{
+      s += "-> "+ cList[i];
+    }
+  }
+  return s;
+}
 
 function hittableHandler(){
   if(gameOver == true){
@@ -141,8 +159,10 @@ function hittableHandler(){
   }
   if (index == (theOrder.length-1)){
     bricks[0][theOrder[index]].hittable = false;
+    var currList = listToString(theOrder);
+    alert( "The Current List is: " + currList);
     theOrder = addOrder(theOrder);
-    alert(theOrder);
+
     if(theOrder.length == 7 && index==6){
       gameOver = true;
     }
@@ -211,15 +231,39 @@ function drawBricks() {
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                //Hard Coded Numbers above the bricks
                 if(r == 0){
                   ctx.fillStyle = bricks[c][r].color;
                   ctx.fillText("Head",30,155);
-                }else if(r==6){
+                }
+                else if(r==6){
                   ctx.fillStyle = bricks[c][r].color;
                   ctx.fillText("NULL",420,155);
-                }else{
-                  ctx.fillStyle = bricks[c][r].color;
                 }
+                else if(r==1){
+                  ctx.fillStyle = bricks[c][r].color;
+                  ctx.fillText( ""+r,108,155);
+                }
+                else if(r == 2){
+                  ctx.fillStyle = bricks[c][r].color;
+                  ctx.fillText( "" + r,175,155);
+                }
+                else if(r == 3){
+                  ctx.fillStyle = bricks[c][r].color;
+                  ctx.fillText( "" + r,242,155);
+                }
+                else if(r == 4){
+                  ctx.fillStyle = bricks[c][r].color;
+                  ctx.fillText( "" + r,306,155);
+                }
+                else if(r == 5){
+                  ctx.fillStyle = bricks[c][r].color;
+                  ctx.fillText( "" + r,373,155);
+                }
+                // else{
+                //   ctx.fillStyle = bricks[c][r].color;
+                //   //ctx.fillText =
+                // }
                 ctx.fill();
                 ctx.closePath();
             }
