@@ -28,10 +28,12 @@ var LLOffsetLeft = 20;
 var score = 0;
 var lives = 5;
 var theOrder = [0,6];
-var brickNames= ["Head", 1,2,3,4,5,"Null"];
-var round = 1;
+//var brickNames= ["Head", 1,2,3,4,5,"Null"];
 var index = 0;
 var gameOver = false;
+//var canBeOver = false;
+var numNodes = 0;
+var incNodes = [true,true,true,true,true];
 
 // 1. Change bricks and make them fit on canvas
       // DONE
@@ -152,20 +154,20 @@ function listToString(cList){
 }
 
 function hittableHandler(){
-  if(gameOver == true){
-    document.location.reload();
-    alert("YOU WIN, CONGRATS!");
-    gameOver = false;
-  }
+  // if(gameOver == true){
+  //   document.location.reload();
+  //   alert("YOU WIN, CONGRATS!");
+  //   gameOver = false;
+  // }
   if (index == (theOrder.length-1)){
     bricks[0][theOrder[index]].hittable = false;
     var currList = listToString(theOrder);
-    alert( "The Current List is: " + currList);
+    alert( "The Current List is:\n " + currList);
     theOrder = addOrder(theOrder);
 
-    if(theOrder.length == 7 && index==6){
-      gameOver = true;
-    }
+    // if(theOrder.length == 7 && index == 6 ){
+    //   gameOver = true;
+    // }
     index = 0;
     bricks[0][0].hittable = true;
   }
@@ -187,12 +189,23 @@ function collisionDetection() {
                       b.color = "green";
                       b.status = 1;
                       ballReleased = false;
+
                       hittableHandler();
+                      if(r != 0 || r != 6){
+                      if (incNodes[r-1] == true){
+                        numNodes ++;
+                        incNodes[r-1] = false;
+                      }
+                    }
                     }
                     dy = -dy;
-                    if(score == (brickRowCount*brickColumnCount-2)) {
-                        document.location.reload();
-                        alert("YOU WIN, CONGRATS!");
+                    if(numNodes >= 5 && index == 0 && theOrder.length == 7) {
+                      alert("YOU WIN, CONGRATS!");
+                      incNodes = [true, true, true, true, true];
+                      index = 0;
+                      numNode = 0;
+                      theOrder = [0,6];
+                      document.location.reload();
                     }
                 }
             }
@@ -289,7 +302,7 @@ function drawLL() {
                   ctx.fillStyle = "#000000";
                   ctx.fillText("NULL",420,70);
                 }else{
-                  ctx.fillStyle = "#223467";
+                  ctx.fillStyle = "red";
                 }
                 ctx.fill();
                 ctx.closePath();
@@ -298,10 +311,10 @@ function drawLL() {
     }
 }
 
-function drawScore() {
+function drawNumNodes() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Hello: "+score, 8, 20);
+    ctx.fillText("Nodes in Linked List: "+ numNodes, 8, 20);
 }
 
 function drawLives() {
@@ -316,7 +329,7 @@ function draw() {
     drawLL();
     drawBall();
     drawPaddle();
-    drawScore();
+    drawNumNodes();
     drawLives();
     collisionDetection();
 
